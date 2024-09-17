@@ -1,6 +1,6 @@
 const calcularPromedio = (numeros) => {
     let sumaTotal = 0;
-// de: for (let i = 0; i <= numeros.length cambiamos y quitamos el igual para poder que i este dentro del array numeros)
+// de: for (let i = 0; i <= numeros.length cambiamos y quitamos el igual para que i este dentro del array numeros)
     for (let i = 0; i < numeros.length; i++) {
         sumaTotal += numeros[i];
     }
