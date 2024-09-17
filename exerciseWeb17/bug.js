@@ -1,0 +1,15 @@
+const calcularPromedio = (numeros) => {
+    let sumaTotal = 0;
+// de: for (let i = 0; i <= numeros.length cambiamos y quitamos el igual para poder que i este dentro del array numeros)
+    for (let i = 0; i < numeros.length; i++) {
+        sumaTotal += numeros[i];
+    }
+
+    const promedio = sumaTotal / numeros.length;
+    return promedio;
+};
+
+const listaNumeros = [1, 2, 3, 4, 5];
+const promedioNumeros = calcularPromedio(listaNumeros);
+
+console.log(`El promedio de los numeros es: ${promedioNumeros}`);
