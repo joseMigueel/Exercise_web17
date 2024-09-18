@@ -6,9 +6,8 @@ const digitos = (numero) => {
     return caracteres.join('-')
 }
 
-console.log(digitos(input))
-yourFunction(input); // '1-0'
+console.log(digitos(input)) // '1-0'
 const secondInput = 1;
-yourFunction(input); // '1'
+console.log(digitos(secondInput))
 const thirdInput = 11234;
-yourFunction(input); // '1-1-2-3-4'
+console.log(digitos(thirdInput)) // '1-1-2-3-4'
