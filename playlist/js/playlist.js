@@ -35,7 +35,9 @@ const musicCatalog = () => {
      * Gets all playlists in the catalog.
      * @returns {Playlist[]} The list of all playlists.
      */
-    const getAllPlaylists = () => {};
+    const getAllPlaylists = () => {
+      return [...playlists];
+    };
   
     /**
      * Removes a playlist from the catalog.
