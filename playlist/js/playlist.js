@@ -103,6 +103,18 @@ const musicCatalog = () => {
      * @throws {Error} If the playlist is not found or the criterion is invalid.
      */
     const sortSongs = (playlistName, criterion) => {
+      const sortSongs = (playlistName, criterion) => {
+        playlists = playlists.map(playlist => {
+          if (playlist.name === playlistName) {
+            const sortedSongs = [...playlist.songs].sort((a, b) => {
+              if (criterion === 'duration') return a.duration - b.duration;
+              return a[criterion].localeCompare(b[criterion]);
+            });
+            return { ...playlist, songs: sortedSongs };
+          }
+          return playlist;
+        });
+      };
       
     };
   
