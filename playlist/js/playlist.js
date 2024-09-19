@@ -27,7 +27,9 @@ const musicCatalog = () => {
      * Adds a new playlist to the catalog.
      * @param {string} playlistName - The name of the new playlist.
      */
-    const createPlaylist = (playlistName) => {};
+    const createPlaylist = (playlistName) => {
+      playlists = [...playlists, {name: playlistName, songs: []}];
+    };
   
     /**
      * Gets all playlists in the catalog.
