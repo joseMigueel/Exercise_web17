@@ -53,7 +53,15 @@ const musicCatalog = () => {
      * @param {{ title: string, artist: string, genre: string, duration: number }} song - The song to add to the playlist.
      * @throws {Error} If the playlist is not found.
      */
-    const addSongToPlaylist = (playlistName, song) => {};
+    const addSongToPlaylist = (playlistName, song) => {
+      playlists = playlists.map(playlists => {
+        if (playlists.name === playlistName){
+          const songFavorite = {...song, favorite: false};
+          return {...playlists, songs: [...playlists.songs, songFavorite]};
+        }
+        return playlists;
+      })
+    };
   
     /**
      * Removes a song from a specific playlist.
