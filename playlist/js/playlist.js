@@ -69,7 +69,15 @@ const musicCatalog = () => {
      * @param {string} title - The title of the song to remove.
      * @throws {Error} If the playlist or song is not found.
      */
-    const removeSongFromPlaylist = (playlistName, title) => {};
+    const removeSongFromPlaylist = (playlistName, title) => {
+      playlists = playlists.map(playlist => {
+        if (playlist.name === playlistName) {
+          const newSongs = playlist.songs.filter(song => song.title !== title);
+          return {...playlist, song: newSongs};
+        }
+        return playlist;
+      });
+    };
   
     /**
      * Marks a song as a favorite or removes the favorite status.
