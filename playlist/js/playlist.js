@@ -73,7 +73,7 @@ const musicCatalog = () => {
       playlists = playlists.map(playlist => {
         if (playlist.name === playlistName) {
           const newSongs = playlist.songs.filter(song => song.title !== title);
-          return {...playlist, song: newSongs};
+          return {...playlist, songs: newSongs};
         }
         return playlist;
       });
