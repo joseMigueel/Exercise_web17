@@ -54,13 +54,17 @@ const musicCatalog = () => {
      * @throws {Error} If the playlist is not found.
      */
     const addSongToPlaylist = (playlistName, song) => {
-      playlists = playlists.map(playlists => {
-        if (playlists.name === playlistName){
-          const songFavorite = {...song, favorite: false};
-          return {...playlists, songs: [...playlists.songs, songFavorite]};
+      const playlistExists = playlists.some(playlist => playlist.name === playlistName);
+      if (!playlistExists) {
+        throw new Error(`Playlist "${playlistName}" not found.`);
+      }
+      playlists = playlists.map(playlist => {
+        if (playlist.name === playlistName) {
+          const songFavorite = { ...song, favorite: false };
+          return { ...playlist, songs: [...playlist.songs, songFavorite] };
         }
-        return playlists;
-      })
+        return playlist;
+      });
     };
   
     /**
@@ -70,10 +74,18 @@ const musicCatalog = () => {
      * @throws {Error} If the playlist or song is not found.
      */
     const removeSongFromPlaylist = (playlistName, title) => {
+      const playlist = playlists.find(playlist => playlist.name === playlistName);
+      if (!playlist) {
+        throw new Error(`Playlist "${playlistName}" not found.`);
+      }
+      const songIndex = playlist.songs.findIndex(song => song.title === title);
+      if (songIndex === -1) {
+        throw new Error(`Song "${title}" not found in playlist "${playlistName}".`);
+      }
       playlists = playlists.map(playlist => {
         if (playlist.name === playlistName) {
           const newSongs = playlist.songs.filter(song => song.title !== title);
-          return {...playlist, songs: newSongs};
+          return { ...playlist, songs: newSongs };
         }
         return playlist;
       });
@@ -103,18 +115,23 @@ const musicCatalog = () => {
      * @throws {Error} If the playlist is not found or the criterion is invalid.
      */
     const sortSongs = (playlistName, criterion) => {
-        playlists = playlists.map(playlist => {
-          if (playlist.name === playlistName) {
-            const sortedSongs = [...playlist.songs].sort((a, b) => {
-              if (criterion === 'duration') return a.duration - b.duration;
-              return a[criterion].localeCompare(b[criterion]);
-            });
-            return { ...playlist, songs: sortedSongs };
-          }
-          return playlist;
-        });
-      ;
-      
+      if (!['title', 'artist', 'duration'].includes(criterion)) {
+        throw new Error(`Invalid sorting criterion: "${criterion}". Must be one of 'title', 'artist', or 'duration'.`);
+      }
+      const playlist = playlists.find(playlist => playlist.name === playlistName);
+      if (!playlist) {
+        throw new Error(`Playlist "${playlistName}" not found.`);
+      }    
+      playlists = playlists.map(playlist => {
+        if (playlist.name === playlistName) {
+          const sortedSongs = [...playlist.songs].sort((a, b) => {
+            if (criterion === 'duration') return a.duration - b.duration;
+            return a[criterion].localeCompare(b[criterion]);
+          });
+          return { ...playlist, songs: sortedSongs };
+        }
+        return playlist;
+      });
     };
   
     return { createPlaylist, addSongToPlaylist, removeSongFromPlaylist, sortSongs, getAllPlaylists, removePlaylist, favoriteSong };
