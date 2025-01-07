@@ -28,7 +28,10 @@ const musicCatalog = () => {
      * @param {string} playlistName - The name of the new playlist.
      */
     const createPlaylist = (playlistName) => {
-      playlists = [...playlists, {name: playlistName, songs: []}];
+      if (playlists.some(playlist => playlist.name === playlistName)) {
+        throw new Error(`Playlist "${playlistName}" already exists.`);
+      }
+      playlists = [...playlists, { name: playlistName, songs: [] }];
     };
   
     /**
@@ -78,19 +81,15 @@ const musicCatalog = () => {
       if (!playlist) {
         throw new Error(`Playlist "${playlistName}" not found.`);
       }
-      const songIndex = playlist.songs.findIndex(song => song.title === title);
-      if (songIndex === -1) {
+      const newSongs = playlist.songs.filter(song => song.title !== title);
+      if (newSongs.length === playlist.songs.length) {
         throw new Error(`Song "${title}" not found in playlist "${playlistName}".`);
       }
-      playlists = playlists.map(playlist => {
-        if (playlist.name === playlistName) {
-          const newSongs = playlist.songs.filter(song => song.title !== title);
-          return { ...playlist, songs: newSongs };
-        }
-        return playlist;
-      });
+      playlists = playlists.map(playlist =>
+        playlist.name === playlistName ? { ...playlist, songs: newSongs } : playlist
+      );
     };
-  
+    
     /**
      * Marks a song as a favorite or removes the favorite status.
      * @param {string} playlistName - The name of the playlist containing the song.
