@@ -8,7 +8,6 @@
  */
 // Example: { title: 'Song Title', artist: 'Song Artist', genre: 'Song Genre', duration: 180, favorite: false }
 
-
 /**
  * @typedef {Object} Playlist
  * @property {string} name - The name of the playlist.
@@ -89,7 +88,7 @@ const musicCatalog = () => {
         playlist.name === playlistName ? { ...playlist, songs: newSongs } : playlist
       );
     };
-    
+
     /**
      * Marks a song as a favorite or removes the favorite status.
      * @param {string} playlistName - The name of the playlist containing the song.
